@@ -16,8 +16,13 @@ export default function RegisterPage() {
   };
 
   return (
-    <AuthCard title="Create your account" subtitle="Start generating affiliate videos in minutes"
-      footerText="Already have an account?" footerLinkText="Log in" footerLinkHref="/auth/login">
+    <AuthCard
+      title="Create your account"
+      subtitle="Start generating affiliate videos in minutes"
+      footerText="Already have an account?"
+      footerLinkText="Log in"
+      footerLinkHref="/auth/login"
+    >
       <AuthForm mode="register" onSubmit={handleRegister} />
     </AuthCard>
   );

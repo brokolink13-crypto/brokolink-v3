@@ -16,8 +16,13 @@ export default function LoginPage() {
   };
 
   return (
-    <AuthCard title="Welcome back" subtitle="Log in to your BrokoLink account"
-      footerText="Don't have an account?" footerLinkText="Sign up" footerLinkHref="/auth/register">
+    <AuthCard
+      title="Welcome back"
+      subtitle="Log in to your BrokoLink account"
+      footerText="Don't have an account?"
+      footerLinkText="Sign up"
+      footerLinkHref="/auth/register"
+    >
       <AuthForm mode="login" onSubmit={handleLogin} />
     </AuthCard>
   );
