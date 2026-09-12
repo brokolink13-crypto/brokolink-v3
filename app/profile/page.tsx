@@ -9,7 +9,7 @@ import { ProfileForm } from "@/components/profile/ProfileForm";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useProfile } from "@/hooks/useProfile";
 import { useAuth } from "@/hooks/useAuth";
-import { AlertTriangle, CreditCard, Shield, Bell } from "lucide-react";
+import { AlertTriangle, CreditCard, Shield, Bell, Zap, ArrowUpRight } from "lucide-react";
 
 export default function ProfilePage() {
   const { profile, isLoading, isSaving, error, success, updateProfile, deleteAccount } = useProfile();
@@ -20,6 +20,10 @@ export default function ProfilePage() {
     await deleteAccount();
     await logout();
   };
+
+  const plan = user?.plan || "free";
+  const videosUsed = 3;
+  const videosLimit = plan === "pro" ? 100 : 10;
 
   return (
     <DashboardLayout>
@@ -59,9 +63,42 @@ export default function ProfilePage() {
           ) : profile ? (
             <div className="space-y-6">
               <ProfileCard profile={profile} plan={user?.plan} />
+
+              <Card variant="default" padding="lg" className="border-broko-primary/10">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-heading-sm text-neutral-900">Plan & Usage</h3>
+                  <Badge variant={plan === "pro" ? "success" : "default"} size="md">
+                    {plan === "pro" ? "\u26a1 Pro" : "Free Plan"}
+                  </Badge>
+                </div>
+                <div className="mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-body-sm text-neutral-600">Videos this month</p>
+                    <p className="text-body-sm font-semibold text-neutral-900">
+                      {videosUsed}/{videosLimit}
+                    </p>
+                  </div>
+                  <div className="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-broko-primary rounded-full transition-all duration-500"
+                      style={{ width: `${(videosUsed / videosLimit) * 100}%` }}
+                    />
+                  </div>
+                  <p className="text-caption text-neutral-400 mt-1">
+                    {videosLimit - videosUsed} videos remaining
+                  </p>
+                </div>
+                {plan !== "pro" && (
+                  <Button variant="primary" size="sm" className="w-full sm:w-auto">
+                    <Zap className="h-3.5 w-3.5" />
+                    Upgrade to Pro
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </Button>
+                )}
+              </Card>
+
               <ProfileForm profile={profile} onSave={updateProfile} isSaving={isSaving} />
 
-              {/* Account Settings */}
               <Card variant="outline" padding="lg">
                 <h3 className="text-heading-sm text-neutral-900 mb-4">Account</h3>
                 <div className="space-y-3">
@@ -96,13 +133,17 @@ export default function ProfilePage() {
                 </div>
               </Card>
 
-              {/* Danger Zone */}
-              <Card variant="outline" padding="lg" className="border-red-100">
+              <Card variant="outline" padding="lg" className="border-red-200">
                 <h3 className="text-heading-sm text-red-600 mb-2">Danger zone</h3>
                 <p className="text-body-sm text-neutral-500 mb-4">
-                  Permanently delete your account and all associated data.
+                  Permanently delete your account and all associated data. This action cannot be undone.
                 </p>
-                <Button variant="danger" size="sm" onClick={() => setShowDeleteModal(true)}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowDeleteModal(true)}
+                  className="border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400"
+                >
                   <AlertTriangle className="h-4 w-4" />
                   Delete account
                 </Button>

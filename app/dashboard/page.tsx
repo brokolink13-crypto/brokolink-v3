@@ -7,8 +7,16 @@ import { Card, Button, Badge, Skeleton } from "@/components/ui";
 import { BrokoCharacter } from "@/components/broko/BrokoCharacter";
 import { useAuth } from "@/hooks/useAuth";
 import { useGeneration } from "@/hooks/useGeneration";
-import { Sparkles, ArrowRight, Clock, TrendingUp, Video, CheckCircle, AlertCircle } from "lucide-react";
+import { Sparkles, ArrowRight, Clock, TrendingUp, Video, CheckCircle, AlertCircle, DollarSign, Lightbulb } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+
+const gradientThumbnails = [
+  "from-purple-400 to-pink-400",
+  "from-blue-400 to-cyan-400",
+  "from-orange-400 to-red-400",
+  "from-emerald-400 to-teal-400",
+  "from-violet-400 to-indigo-400",
+];
 
 export default function DashboardPage() {
   const { user, isLoading: authLoading } = useAuth();
@@ -41,11 +49,12 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           {[
             { label: "Videos Generated", value: "12", icon: Video, trend: "+3 this week" },
             { label: "Total Views", value: "2.4K", icon: TrendingUp, trend: "+18% vs last week" },
             { label: "Watch Time", value: "6.2h", icon: Clock, trend: "Avg 31s per video" },
+            { label: "Est. Earnings", value: "$48", icon: DollarSign, trend: "+$12 this week" },
           ].map((stat) => (
             <Card key={stat.label} variant="default" padding="md">
               <div className="flex items-start justify-between">
@@ -54,7 +63,7 @@ export default function DashboardPage() {
                   <p className="text-display-sm text-neutral-900">{stat.value}</p>
                   <p className="text-caption text-neutral-400 mt-1">{stat.trend}</p>
                 </div>
-                <div className="w-9 h-9 rounded-lg bg-broko-light flex items-center justify-center">
+                <div className="w-9 h-9 rounded-lg bg-broko-light flex items-center justify-center shrink-0">
                   <stat.icon className="h-[18px] w-[18px] text-broko-primary" />
                 </div>
               </div>
@@ -62,7 +71,39 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        {/* Generate CTA */}
+        {!isLoadingHistory && history.length === 0 && (
+          <Card variant="outline" padding="lg" className="mb-8 border-amber-100 bg-amber-50/30">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
+                <Lightbulb className="h-5 w-5 text-amber-600" />
+              </div>
+              <div>
+                <h3 className="text-heading-sm text-neutral-900 mb-2">Getting Started</h3>
+                <ul className="space-y-2 text-body-sm text-neutral-600">
+                  <li className="flex items-start gap-2">
+                    <span className="text-broko-primary font-bold mt-0.5">1.</span>
+                    Go to the <strong>Generate</strong> tab and paste any product affiliate link
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-broko-primary font-bold mt-0.5">2.</span>
+                    Choose your video style, tone, and duration
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-broko-primary font-bold mt-0.5">3.</span>
+                    Click Generate — your video will be ready in seconds!
+                  </li>
+                </ul>
+                <Link href="/generate" className="inline-block mt-3">
+                  <Button size="sm">
+                    <Sparkles className="h-3.5 w-3.5" />
+                    Create your first video
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </Card>
+        )}
+
         <Card variant="default" padding="lg" className="mb-8 bg-broko-light border-broko-primary/10">
           <div className="flex flex-col sm:flex-row items-center gap-6">
             <BrokoCharacter size="md" />
@@ -82,7 +123,6 @@ export default function DashboardPage() {
           </div>
         </Card>
 
-        {/* Recent History */}
         <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-heading text-neutral-900">Recent generations</h2>
@@ -116,11 +156,11 @@ export default function DashboardPage() {
             </Card>
           ) : (
             <div className="space-y-3">
-              {history.map((item) => (
+              {history.map((item, idx) => (
                 <Card key={item.id} variant="outline" padding="md" className="hover:shadow-soft transition-shadow">
                   <div className="flex items-center gap-4">
-                    <div className="w-20 h-14 rounded-md bg-neutral-100 flex items-center justify-center shrink-0">
-                      <span className="text-2xl">🎬</span>
+                    <div className={`w-20 h-14 rounded-md bg-gradient-to-br ${gradientThumbnails[idx % gradientThumbnails.length]} flex items-center justify-center shrink-0`}>
+                      <Video className="h-6 w-6 text-white/80" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-0.5">
