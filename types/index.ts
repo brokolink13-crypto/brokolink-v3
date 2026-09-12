@@ -33,6 +33,13 @@ export interface GenerationResult {
   error?: string;
 }
 
+export interface OnboardingStep {
+  id: number;
+  title: string;
+  description: string;
+  isComplete: boolean;
+}
+
 export interface ProfileData {
   name: string;
   email: string;

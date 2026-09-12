@@ -11,12 +11,19 @@ interface AuthContextType extends AuthState {
 }
 
 const defaultContext: AuthContextType = {
-  user: null, isLoading: true, isAuthenticated: false,
-  login: async () => {}, register: async () => {}, logout: async () => {},
+  user: null,
+  isLoading: true,
+  isAuthenticated: false,
+  login: async () => {},
+  register: async () => {},
+  logout: async () => {},
 };
 
 export const AuthContext = createContext<AuthContextType>(defaultContext);
-export function useAuth() { return useContext(AuthContext); }
+
+export function useAuth() {
+  return useContext(AuthContext);
+}
 
 export function useAuthProvider(): AuthContextType {
   const [user, setUser] = useState<User | null>(null);
@@ -24,20 +31,30 @@ export function useAuthProvider(): AuthContextType {
 
   useEffect(() => {
     const stored = authService.getStoredAuth();
-    if (stored) setUser(stored.user);
+    if (stored) {
+      setUser(stored.user);
+    }
     setIsLoading(false);
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
     setIsLoading(true);
-    try { const result = await authService.login(email, password); setUser(result.user); }
-    finally { setIsLoading(false); }
+    try {
+      const result = await authService.login(email, password);
+      setUser(result.user);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
   const register = useCallback(async (name: string, email: string, password: string) => {
     setIsLoading(true);
-    try { const result = await authService.register(name, email, password); setUser(result.user); }
-    finally { setIsLoading(false); }
+    try {
+      const result = await authService.register(name, email, password);
+      setUser(result.user);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
   const logout = useCallback(async () => {
@@ -45,5 +62,12 @@ export function useAuthProvider(): AuthContextType {
     setUser(null);
   }, []);
 
-  return { user, isLoading, isAuthenticated: !!user, login, register, logout };
+  return {
+    user,
+    isLoading,
+    isAuthenticated: !!user,
+    login,
+    register,
+    logout,
+  };
 }

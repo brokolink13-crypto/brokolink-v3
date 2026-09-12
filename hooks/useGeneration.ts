@@ -4,7 +4,18 @@ import { useState, useCallback } from "react";
 import { GenerationParams, GenerationResult, GenerationStatus } from "@/types";
 import * as generationService from "@/services/generation.service";
 
-export function useGeneration() {
+interface UseGenerationReturn {
+  status: GenerationStatus;
+  result: GenerationResult | null;
+  history: GenerationResult[];
+  isLoadingHistory: boolean;
+  generate: (params: GenerationParams) => Promise<void>;
+  loadHistory: () => Promise<void>;
+  reset: () => void;
+  error: string | null;
+}
+
+export function useGeneration(): UseGenerationReturn {
   const [status, setStatus] = useState<GenerationStatus>("idle");
   const [result, setResult] = useState<GenerationResult | null>(null);
   const [history, setHistory] = useState<GenerationResult[]>([]);
@@ -12,7 +23,10 @@ export function useGeneration() {
   const [error, setError] = useState<string | null>(null);
 
   const generate = useCallback(async (params: GenerationParams) => {
-    setStatus("validating"); setError(null); setResult(null);
+    setStatus("validating");
+    setError(null);
+    setResult(null);
+
     try {
       setStatus("generating");
       const res = await generationService.generateVideo(params);
@@ -27,12 +41,21 @@ export function useGeneration() {
 
   const loadHistory = useCallback(async () => {
     setIsLoadingHistory(true);
-    try { const data = await generationService.getGenerationHistory(); setHistory(data); }
-    catch (err) { setError(err instanceof Error ? err.message : "Failed to load history"); }
-    finally { setIsLoadingHistory(false); }
+    try {
+      const data = await generationService.getGenerationHistory();
+      setHistory(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load history");
+    } finally {
+      setIsLoadingHistory(false);
+    }
   }, []);
 
-  const reset = useCallback(() => { setStatus("idle"); setResult(null); setError(null); }, []);
+  const reset = useCallback(() => {
+    setStatus("idle");
+    setResult(null);
+    setError(null);
+  }, []);
 
   return { status, result, history, isLoadingHistory, generate, loadHistory, reset, error };
 }
