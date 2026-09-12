@@ -16,39 +16,128 @@ export default function ProfilePage() {
   const { user, logout } = useAuth();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+  const handleDelete = async () => {
+    await deleteAccount();
+    await logout();
+  };
+
   return (
     <DashboardLayout>
       <div className="container-page py-8">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-display-sm text-neutral-900 mb-2">Profile</h1>
+          <div className="mb-8">
+            <h1 className="text-display-sm text-neutral-900 mb-2">Profile</h1>
+            <p className="text-body-lg text-neutral-500">
+              Manage your account settings and preferences.
+            </p>
+          </div>
+
           {isLoading ? (
-            <Card variant="default" padding="lg"><Skeleton className="h-20 w-full" /></Card>
+            <div className="space-y-6">
+              <Card variant="default" padding="lg">
+                <div className="flex items-start gap-4">
+                  <Skeleton variant="circular" className="h-14 w-14" />
+                  <div className="space-y-2 flex-1">
+                    <Skeleton className="h-5 w-36" />
+                    <Skeleton className="h-4 w-48" />
+                    <Skeleton className="h-4 w-64" />
+                  </div>
+                </div>
+              </Card>
+              <Card variant="outline" padding="lg">
+                <div className="space-y-4">
+                  <Skeleton className="h-6 w-24" />
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="space-y-1.5">
+                      <Skeleton className="h-4 w-16" />
+                      <Skeleton className="h-10 w-full" />
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </div>
           ) : profile ? (
             <div className="space-y-6">
               <ProfileCard profile={profile} plan={user?.plan} />
               <ProfileForm profile={profile} onSave={updateProfile} isSaving={isSaving} />
+
+              {/* Account Settings */}
+              <Card variant="outline" padding="lg">
+                <h3 className="text-heading-sm text-neutral-900 mb-4">Account</h3>
+                <div className="space-y-3">
+                  <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-50 transition-colors text-left">
+                    <div className="w-9 h-9 rounded-lg bg-neutral-100 flex items-center justify-center">
+                      <CreditCard className="h-[18px] w-[18px] text-neutral-500" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-body-sm font-medium text-neutral-900">Billing & Plan</p>
+                      <p className="text-caption text-neutral-400">Manage your subscription</p>
+                    </div>
+                    <Badge>{user?.plan || "free"}</Badge>
+                  </button>
+                  <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-50 transition-colors text-left">
+                    <div className="w-9 h-9 rounded-lg bg-neutral-100 flex items-center justify-center">
+                      <Bell className="h-[18px] w-[18px] text-neutral-500" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-body-sm font-medium text-neutral-900">Notifications</p>
+                      <p className="text-caption text-neutral-400">Email and push preferences</p>
+                    </div>
+                  </button>
+                  <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-50 transition-colors text-left">
+                    <div className="w-9 h-9 rounded-lg bg-neutral-100 flex items-center justify-center">
+                      <Shield className="h-[18px] w-[18px] text-neutral-500" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-body-sm font-medium text-neutral-900">Security</p>
+                      <p className="text-caption text-neutral-400">Password and two-factor</p>
+                    </div>
+                  </button>
+                </div>
+              </Card>
+
+              {/* Danger Zone */}
               <Card variant="outline" padding="lg" className="border-red-100">
                 <h3 className="text-heading-sm text-red-600 mb-2">Danger zone</h3>
+                <p className="text-body-sm text-neutral-500 mb-4">
+                  Permanently delete your account and all associated data.
+                </p>
                 <Button variant="danger" size="sm" onClick={() => setShowDeleteModal(true)}>
-                  <AlertTriangle className="h-4 w-4" />Delete account
+                  <AlertTriangle className="h-4 w-4" />
+                  Delete account
                 </Button>
               </Card>
             </div>
           ) : (
             <Card variant="outline" padding="lg" className="text-center">
-              <p className="text-body text-neutral-400">{error || "Unable to load profile."}</p>
+              <p className="text-body text-neutral-400">
+                {error || "Unable to load profile. Please try again."}
+              </p>
             </Card>
           )}
         </div>
       </div>
+
       <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} title="Delete Account" size="sm">
-        <p className="text-body text-neutral-600 mb-6">Are you sure? This cannot be undone.</p>
+        <p className="text-body text-neutral-600 mb-6">
+          Are you sure you want to delete your account? This action cannot be undone and will permanently remove all your data.
+        </p>
         <div className="flex gap-3">
-          <Button variant="outline" onClick={() => setShowDeleteModal(false)} className="flex-1">Cancel</Button>
-          <Button variant="danger" onClick={async () => { await deleteAccount(); await logout(); }} className="flex-1">Delete permanently</Button>
+          <Button variant="outline" onClick={() => setShowDeleteModal(false)} className="flex-1">
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDelete} className="flex-1">
+            Delete permanently
+          </Button>
         </div>
       </Modal>
-      <Toast message={success || error || ""} type={success ? "success" : "error"} isVisible={!!(success || error)} onClose={() => {}} />
+
+      <Toast
+        message={success || error || ""}
+        type={success ? "success" : "error"}
+        isVisible={!!(success || error)}
+        onClose={() => {}}
+      />
     </DashboardLayout>
   );
 }

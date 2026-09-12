@@ -5,16 +5,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @layer base {
-  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-  body { @apply font-sans text-neutral-900 bg-white; }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply font-sans text-neutral-900 bg-white;
+  }
 }
 
 @layer components {
-  .container-page { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
-  .container-narrow { @apply max-w-3xl mx-auto px-4 sm:px-6; }
-  .section-spacing { @apply py-16 sm:py-20 lg:py-24; }
+  .container-page {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .container-narrow {
+    @apply max-w-3xl mx-auto px-4 sm:px-6;
+  }
+  .section-spacing {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
 }
 
 @layer utilities {
-  .text-balance { text-wrap: balance; }
+  .text-balance {
+    text-wrap: balance;
+  }
 }

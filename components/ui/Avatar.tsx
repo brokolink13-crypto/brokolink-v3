@@ -1,12 +1,52 @@
 import React from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-interface AvatarProps { name?: string; src?: string; size?: "sm" | "md" | "lg"; className?: string; }
+interface AvatarProps {
+  name?: string;
+  src?: string;
+  size?: "sm" | "md" | "lg";
+  className?: string;
+}
 
 export function Avatar({ name = "", src, size = "md", className }: AvatarProps) {
-  const sizes = { sm: { container: "h-8 w-8", text: "text-caption" }, md: { container: "h-10 w-10", text: "text-body-sm" }, lg: { container: "h-14 w-14", text: "text-body-lg" } };
+  const sizes = {
+    sm: { container: "h-8 w-8", text: "text-caption", px: 32 },
+    md: { container: "h-10 w-10", text: "text-body-sm", px: 40 },
+    lg: { container: "h-14 w-14", text: "text-body-lg", px: 56 },
+  };
+
   const s = sizes[size];
-  const initials = name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2);
-  if (src) return <img src={src} alt={name} className={cn("rounded-full object-cover", s.container, className)} />;
-  return <div className={cn("rounded-full bg-broko-light text-broko-primary font-semibold flex items-center justify-center", s.container, s.text, className)}>{initials || "?"}</div>;
+
+  const initials = name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+
+  if (src) {
+    return (
+      <Image
+        src={src}
+        alt={name}
+        width={s.px}
+        height={s.px}
+        className={cn("rounded-full object-cover", s.container, className)}
+      />
+    );
+  }
+
+  return (
+    <div
+      className={cn(
+        "rounded-full bg-broko-light text-broko-primary font-semibold flex items-center justify-center",
+        s.container,
+        s.text,
+        className
+      )}
+    >
+      {initials || "?"}
+    </div>
+  );
 }

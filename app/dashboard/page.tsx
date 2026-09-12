@@ -14,19 +14,33 @@ export default function DashboardPage() {
   const { user, isLoading: authLoading } = useAuth();
   const { history, isLoadingHistory, loadHistory } = useGeneration();
 
-  useEffect(() => { loadHistory(); }, [loadHistory]);
+  useEffect(() => {
+    loadHistory();
+  }, [loadHistory]);
 
   return (
     <DashboardLayout>
       <div className="container-page py-8">
+        {/* Header */}
         <div className="mb-8">
           {authLoading ? (
-            <div className="space-y-2"><Skeleton className="h-8 w-48" /><Skeleton className="h-5 w-64" /></div>
+            <div className="space-y-2">
+              <Skeleton className="h-8 w-48" />
+              <Skeleton className="h-5 w-64" />
+            </div>
           ) : (
-            <><h1 className="text-display-sm text-neutral-900 mb-1">Welcome back{user?.name ? `, ${user.name.split(" ")[0]}` : ""} 👋</h1>
-            <p className="text-body-lg text-neutral-500">Here's what's happening with your content.</p></>
+            <>
+              <h1 className="text-display-sm text-neutral-900 mb-1">
+                Welcome back{user?.name ? `, ${user.name.split(" ")[0]}` : ""} 👋
+              </h1>
+              <p className="text-body-lg text-neutral-500">
+                Here&apos;s what&apos;s happening with your content.
+              </p>
+            </>
           )}
         </div>
+
+        {/* Quick Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           {[
             { label: "Videos Generated", value: "12", icon: Video, trend: "+3 this week" },
@@ -47,42 +61,92 @@ export default function DashboardPage() {
             </Card>
           ))}
         </div>
-        <Card variant="default" padding="lg" className="mb-8 bg-broko-light">
+
+        {/* Generate CTA */}
+        <Card variant="default" padding="lg" className="mb-8 bg-broko-light border-broko-primary/10">
           <div className="flex flex-col sm:flex-row items-center gap-6">
             <BrokoCharacter size="md" />
             <div className="flex-1 text-center sm:text-left">
               <h3 className="text-heading text-neutral-900 mb-1">Generate a new video</h3>
-              <p className="text-body text-neutral-500">Paste a product link and let AI create your next affiliate video.</p>
+              <p className="text-body text-neutral-500">
+                Paste a product link and let AI create your next affiliate video.
+              </p>
             </div>
-            <Link href="/generate"><Button size="lg"><Sparkles className="h-4 w-4" />Generate<ArrowRight className="h-4 w-4" /></Button></Link>
+            <Link href="/generate">
+              <Button size="lg">
+                <Sparkles className="h-4 w-4" />
+                Generate
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </Card>
+
+        {/* Recent History */}
         <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-heading text-neutral-900">Recent generations</h2>
-            <Button variant="ghost" size="sm">View all</Button>
+            <Button variant="ghost" size="sm">
+              View all
+            </Button>
           </div>
+
           {isLoadingHistory ? (
-            <div className="space-y-3">{[1, 2, 3].map((i) => (<Card key={i} variant="outline" padding="md"><Skeleton className="h-14 w-full" /></Card>))}</div>
+            <div className="space-y-3">
+              {[1, 2, 3].map((i) => (
+                <Card key={i} variant="outline" padding="md">
+                  <div className="flex items-center gap-4">
+                    <Skeleton variant="rectangular" className="w-20 h-14 rounded-md" />
+                    <div className="flex-1 space-y-2">
+                      <Skeleton className="h-4 w-32" />
+                      <Skeleton className="h-3 w-48" />
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
           ) : history.length === 0 ? (
             <Card variant="outline" padding="lg" className="text-center">
-              <p className="text-body text-neutral-400 mb-3">No generations yet.</p>
-              <Link href="/generate"><Button size="sm">Generate your first video</Button></Link>
+              <p className="text-body text-neutral-400 mb-3">
+                No generations yet. Create your first video!
+              </p>
+              <Link href="/generate">
+                <Button size="sm">Generate your first video</Button>
+              </Link>
             </Card>
           ) : (
             <div className="space-y-3">
               {history.map((item) => (
-                <Card key={item.id} variant="outline" padding="md">
+                <Card key={item.id} variant="outline" padding="md" className="hover:shadow-soft transition-shadow">
                   <div className="flex items-center gap-4">
-                    <div className="w-20 h-14 rounded-md bg-neutral-100 flex items-center justify-center"><span className="text-2xl">🎬</span></div>
+                    <div className="w-20 h-14 rounded-md bg-neutral-100 flex items-center justify-center shrink-0">
+                      <span className="text-2xl">🎬</span>
+                    </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-0.5">
-                        <p className="text-body-sm font-medium text-neutral-900 truncate">Video {item.id}</p>
-                        <Badge variant={item.status === "complete" ? "success" : "error"}>{item.status}</Badge>
+                        <p className="text-body-sm font-medium text-neutral-900 truncate">
+                          Video {item.id}
+                        </p>
+                        {item.status === "complete" ? (
+                          <Badge variant="success">
+                            <CheckCircle className="h-3 w-3 mr-1" />
+                            Complete
+                          </Badge>
+                        ) : (
+                          <Badge variant="error">
+                            <AlertCircle className="h-3 w-3 mr-1" />
+                            Failed
+                          </Badge>
+                        )}
                       </div>
-                      <p className="text-caption text-neutral-400">{formatDate(item.createdAt)}</p>
+                      <p className="text-caption text-neutral-400">
+                        {item.duration && `${item.duration} • `}
+                        {formatDate(item.createdAt)}
+                      </p>
                     </div>
-                    <Button variant="ghost" size="sm"><ArrowRight className="h-4 w-4" /></Button>
+                    <Button variant="ghost" size="sm">
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
                   </div>
                 </Card>
               ))}

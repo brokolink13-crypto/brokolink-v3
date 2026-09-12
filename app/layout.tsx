@@ -8,7 +8,11 @@ export const metadata: Metadata = {
   description: "Generate stunning affiliate videos with AI. Create, share, and earn with BrokoLink.",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
       <body>
