@@ -1,0 +1,54 @@
+"use client";
+
+import React, { useState } from "react";
+import { DashboardLayout } from "@/components/layout/DashboardLayout";
+import { Card, Button, Badge, Modal } from "@/components/ui";
+import { Toast } from "@/components/ui/Toast";
+import { ProfileCard } from "@/components/profile/ProfileCard";
+import { ProfileForm } from "@/components/profile/ProfileForm";
+import { Skeleton } from "@/components/ui/Skeleton";
+import { useProfile } from "@/hooks/useProfile";
+import { useAuth } from "@/hooks/useAuth";
+import { AlertTriangle, CreditCard, Shield, Bell } from "lucide-react";
+
+export default function ProfilePage() {
+  const { profile, isLoading, isSaving, error, success, updateProfile, deleteAccount } = useProfile();
+  const { user, logout } = useAuth();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  return (
+    <DashboardLayout>
+      <div className="container-page py-8">
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-display-sm text-neutral-900 mb-2">Profile</h1>
+          {isLoading ? (
+            <Card variant="default" padding="lg"><Skeleton className="h-20 w-full" /></Card>
+          ) : profile ? (
+            <div className="space-y-6">
+              <ProfileCard profile={profile} plan={user?.plan} />
+              <ProfileForm profile={profile} onSave={updateProfile} isSaving={isSaving} />
+              <Card variant="outline" padding="lg" className="border-red-100">
+                <h3 className="text-heading-sm text-red-600 mb-2">Danger zone</h3>
+                <Button variant="danger" size="sm" onClick={() => setShowDeleteModal(true)}>
+                  <AlertTriangle className="h-4 w-4" />Delete account
+                </Button>
+              </Card>
+            </div>
+          ) : (
+            <Card variant="outline" padding="lg" className="text-center">
+              <p className="text-body text-neutral-400">{error || "Unable to load profile."}</p>
+            </Card>
+          )}
+        </div>
+      </div>
+      <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} title="Delete Account" size="sm">
+        <p className="text-body text-neutral-600 mb-6">Are you sure? This cannot be undone.</p>
+        <div className="flex gap-3">
+          <Button variant="outline" onClick={() => setShowDeleteModal(false)} className="flex-1">Cancel</Button>
+          <Button variant="danger" onClick={async () => { await deleteAccount(); await logout(); }} className="flex-1">Delete permanently</Button>
+        </div>
+      </Modal>
+      <Toast message={success || error || ""} type={success ? "success" : "error"} isVisible={!!(success || error)} onClose={() => {}} />
+    </DashboardLayout>
+  );
+}
