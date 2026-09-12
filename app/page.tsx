@@ -5,22 +5,22 @@ import { Footer } from "@/components/layout";
 import { Button, Card, Badge } from "@/components/ui";
 import { BrokoCharacter } from "@/components/broko/BrokoCharacter";
 import { APP_NAME, APP_TAGLINE } from "@/lib/constants";
-import { Sparkles, Zap, TrendingUp, PlayCircle, ArrowRight, Check } from "lucide-react";
+import { Sparkles, Zap, TrendingUp, PlayCircle, ArrowRight, Check, Link2, Wand2, Download, Star, Users, Video } from "lucide-react";
 
 const features = [
   {
     icon: Sparkles,
-    title: "AI-Powered Generation",
-    description: "Drop a product link and get a polished affiliate video in seconds. No editing skills needed.",
+    title: "AI Script Writing",
+    description: "Our AI writes scroll-stopping scripts optimized for affiliate conversions. No copywriting skills needed.",
   },
   {
     icon: Zap,
-    title: "Lightning Fast",
+    title: "Auto Video Generation",
     description: "Generate videos in under 60 seconds. Optimized for TikTok, Reels, and Shorts.",
   },
   {
     icon: TrendingUp,
-    title: "Built to Convert",
+    title: "Affiliate Optimized",
     description: "Every video is crafted with proven conversion frameworks. Maximize your affiliate earnings.",
   },
   {
@@ -31,9 +31,15 @@ const features = [
 ];
 
 const steps = [
-  { step: "01", title: "Paste your link", description: "Drop any product URL from your affiliate program." },
-  { step: "02", title: "Choose your style", description: "Select tone, duration, and video format." },
-  { step: "03", title: "Generate & share", description: "Get your video and start earning commissions." },
+  { step: "01", icon: Link2, title: "Paste product link", description: "Drop any product URL from your affiliate program — Amazon, Tokopedia, Shopee, and more." },
+  { step: "02", icon: Wand2, title: "Broko AI creates script", description: "Our AI analyzes the product, writes a conversion-optimized script, and generates your video." },
+  { step: "03", icon: Download, title: "Download & share", description: "Get your video in seconds and share across TikTok, Reels, Shorts — start earning commissions." },
+];
+
+const stats = [
+  { icon: Video, value: "10,000+", label: "videos generated" },
+  { icon: Users, value: "50K+", label: "creators" },
+  { icon: Star, value: "4.9★", label: "rating" },
 ];
 
 export default function LandingPage() {
@@ -51,8 +57,8 @@ export default function LandingPage() {
                 AI-powered affiliate videos
               </Badge>
               <h1 className="text-display-lg text-neutral-900 mb-6 text-balance">
-                Turn any product link into a{" "}
-                <span className="text-broko-primary">viral video</span>
+                Create Affiliate Videos{" "}
+                <span className="text-broko-primary">with AI</span>
               </h1>
               <p className="text-body-lg text-neutral-500 mb-8 max-w-lg mx-auto lg:mx-0">
                 {APP_TAGLINE}. {APP_NAME} uses AI to create scroll-stopping affiliate content in seconds.
@@ -60,13 +66,13 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <Link href="/auth/register">
                   <Button size="lg" className="w-full sm:w-auto">
-                    Start for free
+                    Get Started
                     <ArrowRight className="h-4 w-4 ml-1" />
                   </Button>
                 </Link>
-                <Link href="#how-it-works">
+                <Link href="/dashboard">
                   <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    See how it works
+                    See Demo
                   </Button>
                 </Link>
               </div>
@@ -95,6 +101,55 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Stats Bar */}
+      <section className="border-y border-neutral-100 bg-neutral-50">
+        <div className="container-page py-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16">
+            {stats.map((stat) => (
+              <div key={stat.label} className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-broko-light flex items-center justify-center">
+                  <stat.icon className="h-5 w-5 text-broko-primary" />
+                </div>
+                <div>
+                  <p className="text-heading-sm text-neutral-900">{stat.value}</p>
+                  <p className="text-caption text-neutral-400">{stat.label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section id="how-it-works" className="section-spacing">
+        <div className="container-page">
+          <div className="text-center mb-14">
+            <Badge variant="info" size="md" className="mb-4 inline-flex">
+              How it works
+            </Badge>
+            <h2 className="text-display text-neutral-900 mb-4">
+              Three steps. That&apos;s it.
+            </h2>
+            <p className="text-body-lg text-neutral-500 max-w-2xl mx-auto">
+              From product link to published video in under a minute.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {steps.map((step) => (
+              <div key={step.step} className="text-center">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-broko-light mb-4">
+                  <step.icon className="h-6 w-6 text-broko-primary" />
+                </div>
+                <div className="text-caption text-broko-primary font-bold mb-2">STEP {step.step}</div>
+                <h3 className="text-heading-sm text-neutral-900 mb-2">{step.title}</h3>
+                <p className="text-body text-neutral-500">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Features */}
       <section id="features" className="section-spacing bg-neutral-50">
         <div className="container-page">
@@ -116,32 +171,6 @@ export default function LandingPage() {
                 <h3 className="text-heading-sm text-neutral-900 mb-2">{feature.title}</h3>
                 <p className="text-body text-neutral-500">{feature.description}</p>
               </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section id="how-it-works" className="section-spacing">
-        <div className="container-page">
-          <div className="text-center mb-14">
-            <h2 className="text-display text-neutral-900 mb-4">
-              Three steps. That&apos;s it.
-            </h2>
-            <p className="text-body-lg text-neutral-500 max-w-2xl mx-auto">
-              From product link to published video in under a minute.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {steps.map((step) => (
-              <div key={step.step} className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-broko-light text-broko-primary font-display font-bold text-body mb-4">
-                  {step.step}
-                </div>
-                <h3 className="text-heading-sm text-neutral-900 mb-2">{step.title}</h3>
-                <p className="text-body text-neutral-500">{step.description}</p>
-              </div>
             ))}
           </div>
         </div>
