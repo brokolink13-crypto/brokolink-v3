@@ -35,8 +35,19 @@ export const GENERATION_STYLES = [
 ] as const;
 
 export const ONBOARDING_STEPS = [
-  { id: 1, title: "Welcome to BrokoLink", description: "Let's get you set up to create amazing affiliate videos with AI." },
-  { id: 2, title: "Tell us about yourself", description: "This helps us personalize your experience." },
-  { id: 3, title: "Choose your niche", description: "Select the categories you'll be creating content for." },
-  { id: 4, title: "You're all set!", description: "Start generating your first affiliate video." },
+  {
+    id: 1,
+    title: "Welcome to BrokoLink!",
+    description: "Your AI affiliate video assistant. Create scroll-stopping content in seconds.",
+  },
+  {
+    id: 2,
+    title: "How it works",
+    description: "Three simple steps to start earning with affiliate videos.",
+  },
+  {
+    id: 3,
+    title: "Let's get started",
+    description: "Paste your first affiliate link to create your first video.",
+  },
 ] as const;
