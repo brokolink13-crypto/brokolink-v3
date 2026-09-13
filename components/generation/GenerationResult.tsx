@@ -27,7 +27,7 @@ export function GenerationResultView({ result, onReset }: GenerationResultProps)
           <div className="text-center">
             <p className="text-4xl mb-2">🎬</p>
             <p className="text-body-sm text-neutral-400">Video Preview</p>
-            <p className="text-caption text-neutral-300">{result.duration} \u2022 {result.id}</p>
+            <p className="text-caption text-neutral-300">{result.duration} • {result.id}</p>
           </div>
         </div>
         <div className="p-4 flex items-center justify-between border-t border-neutral-100">
