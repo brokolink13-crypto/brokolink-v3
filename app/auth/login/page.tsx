@@ -2,13 +2,12 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { AuthCard } from "@/components/auth/AuthCard";
-import { AuthForm } from "@/components/auth/AuthForm";
+import { AuthCard, AuthForm } from "@/components/auth";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function LoginPage() {
-  const router = useRouter();
   const { login } = useAuth();
+  const router = useRouter();
 
   const handleLogin = async (data: { email: string; password: string }) => {
     await login(data.email, data.password);
