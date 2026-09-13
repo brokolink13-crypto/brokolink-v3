@@ -23,7 +23,7 @@ export function Sidebar() {
   return (
     <aside className="hidden lg:flex flex-col w-64 h-screen sticky top-0 border-r border-neutral-100 bg-white">
       <div className="flex items-center gap-2.5 px-6 h-16 border-b border-neutral-100">
-        <Image src="/logo.png" alt={APP_NAME} width={28} height={28} className="rounded-lg" />
+        <Image src="/logo.svg" alt={APP_NAME} width={28} height={28} className="rounded-lg" />
         <span className="font-display text-heading-sm font-bold text-[#1A4D2E]">
           {APP_NAME}
         </span>
