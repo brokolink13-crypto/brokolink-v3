@@ -6,3 +6,4 @@ export { Avatar } from "./Avatar";
 export { Skeleton } from "./Skeleton";
 export { Toast } from "./Toast";
 export { Modal } from "./Modal";
+export { BrokoLinkLogo } from "./BrokoLinkLogo";

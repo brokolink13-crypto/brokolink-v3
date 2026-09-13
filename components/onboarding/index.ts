@@ -1,2 +1,2 @@
-export { OnboardingProgress } from "./OnboardingProgress";
 export { OnboardingStep } from "./OnboardingStep";
+export { OnboardingProgress } from "./OnboardingProgress";
