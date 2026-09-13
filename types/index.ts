@@ -53,3 +53,41 @@ export interface ApiResponse<T> {
   error?: string;
   status: number;
 }
+
+// Broko Seed System
+export interface BrokoSeedBalance {
+  balance: number;
+  xp: number;
+  maxXp: number;
+  level: number;
+}
+
+export type SeedActivityType = 'daily_checkin' | 'watch_ads' | 'referral' | 'weekly_mission';
+
+export interface SeedActivity {
+  id: string;
+  type: SeedActivityType;
+  label: string;
+  reward: number;
+  description: string;
+  completedToday?: boolean;
+}
+
+export interface SeedHistoryEntry {
+  id: string;
+  type: SeedActivityType;
+  amount: number;
+  description: string;
+  date: string;
+}
+
+export interface VideoItem {
+  id: string;
+  productName: string;
+  thumbnailUrl?: string;
+  status: 'ready' | 'processing' | 'failed';
+  resolution: string;
+  duration: string;
+  price?: string;
+  createdAt: string;
+}
