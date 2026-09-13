@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { BrokoCharacter } from "@/components/broko/BrokoCharacter";
-import { BrokoSVGIcon } from "@/components/broko/BrokoSVGIcon";
 import { Button, Input } from "@/components/ui";
 import { ONBOARDING_STEPS, APP_NAME } from "@/lib/constants";
 import { Link2, Wand2, Download, ArrowRight } from "lucide-react";
@@ -33,11 +33,12 @@ export default function OnboardingPage() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
+      {/* Top bar */}
       <div className="container-page py-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <BrokoSVGIcon size={24} />
-            <span className="text-body-sm font-bold text-broko-primary">
+            <Image src="/logo.png" alt={APP_NAME} width={24} height={24} className="rounded" />
+            <span className="text-body-sm font-bold text-[#1A4D2E]">
               {APP_NAME}
             </span>
           </div>
@@ -45,6 +46,7 @@ export default function OnboardingPage() {
             {currentStep} of {totalSteps}
           </span>
         </div>
+        {/* Progress dots */}
         <div className="flex items-center gap-2">
           {Array.from({ length: totalSteps }, (_, i) => (
             <div
@@ -57,6 +59,7 @@ export default function OnboardingPage() {
         </div>
       </div>
 
+      {/* Step content */}
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md animate-fade-in">
           <div className="flex flex-col items-center text-center">
