@@ -2,16 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   body {
-    @apply text-neutral-900 bg-white font-sans;
-  }
-  ::selection {
-    @apply bg-broko-light text-broko-primary;
+    @apply font-sans text-neutral-900 bg-white;
   }
 }
 
@@ -23,9 +22,12 @@
     @apply max-w-3xl mx-auto px-4 sm:px-6;
   }
   .section-spacing {
-    @apply py-16 sm:py-20 md:py-24;
+    @apply py-16 sm:py-20 lg:py-24;
   }
-  .safe-area-bottom {
-    padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }
