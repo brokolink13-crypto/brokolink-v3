@@ -25,7 +25,7 @@ export function AuthCard({
       <div className="w-full max-w-[400px]">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex flex-col items-center gap-2 mb-6">
-            <Image src="/logo.png" alt={APP_NAME} width={64} height={64} className="rounded-xl" />
+            <Image src="/logo.svg" alt={APP_NAME} width={64} height={64} className="rounded-xl" />
             <span className="font-display text-heading font-bold text-[#1A4D2E]">
               {APP_NAME}
             </span>
