@@ -1,7 +1,7 @@
 import { GenerationParams, GenerationResult } from "@/types";
 import { delay } from "@/lib/utils";
 
-// Mock service \u2014 replace with real API later
+// Mock service — replace with real API later
 export async function generateVideo(params: GenerationParams): Promise<GenerationResult> {
   await delay(2000);
 
