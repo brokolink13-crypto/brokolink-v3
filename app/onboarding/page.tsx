@@ -37,7 +37,7 @@ export default function OnboardingPage() {
       <div className="container-page py-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt={APP_NAME} width={24} height={24} className="rounded" />
+            <Image src="/logo.svg" alt={APP_NAME} width={24} height={24} className="rounded" />
             <span className="text-body-sm font-bold text-[#1A4D2E]">
               {APP_NAME}
             </span>
