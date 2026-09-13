@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Navbar } from "@/components/layout";
 import { Footer } from "@/components/layout";
 import { Button, Card, Badge } from "@/components/ui";

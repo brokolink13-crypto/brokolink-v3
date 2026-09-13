@@ -64,11 +64,12 @@ export default function ProfilePage() {
             <div className="space-y-6">
               <ProfileCard profile={profile} plan={user?.plan} />
 
+              {/* Plan & Usage */}
               <Card variant="default" padding="lg" className="border-broko-primary/10">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-heading-sm text-neutral-900">Plan & Usage</h3>
                   <Badge variant={plan === "pro" ? "success" : "default"} size="md">
-                    {plan === "pro" ? "\u26a1 Pro" : "Free Plan"}
+                    {plan === "pro" ? "⚡ Pro" : "Free Plan"}
                   </Badge>
                 </div>
                 <div className="mb-4">
@@ -99,6 +100,7 @@ export default function ProfilePage() {
 
               <ProfileForm profile={profile} onSave={updateProfile} isSaving={isSaving} />
 
+              {/* Account Settings */}
               <Card variant="outline" padding="lg">
                 <h3 className="text-heading-sm text-neutral-900 mb-4">Account</h3>
                 <div className="space-y-3">
@@ -133,6 +135,7 @@ export default function ProfilePage() {
                 </div>
               </Card>
 
+              {/* Danger Zone */}
               <Card variant="outline" padding="lg" className="border-red-200">
                 <h3 className="text-heading-sm text-red-600 mb-2">Danger zone</h3>
                 <p className="text-body-sm text-neutral-500 mb-4">
