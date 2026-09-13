@@ -17,7 +17,7 @@ export function Navbar() {
     <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-neutral-100">
       <nav className="container-page flex items-center justify-between h-16">
         <Link href="/" className="flex items-center gap-2.5">
-          <Image src="/logo.png" alt={APP_NAME} width={32} height={32} className="rounded-lg" />
+          <Image src="/logo.svg" alt={APP_NAME} width={32} height={32} className="rounded-lg" />
           <span className="font-display text-heading-sm font-bold text-[#1A4D2E]">
             {APP_NAME}
           </span>
