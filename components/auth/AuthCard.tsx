@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { APP_NAME } from "@/lib/constants";
-import { BrokoSVGIcon } from "@/components/broko/BrokoSVGIcon";
 
 interface AuthCardProps {
   children: React.ReactNode;
@@ -24,9 +24,9 @@ export function AuthCard({
     <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4 py-12">
       <div className="w-full max-w-[400px]">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2.5 mb-6">
-            <BrokoSVGIcon size={32} />
-            <span className="font-display text-heading font-bold text-broko-primary">
+          <Link href="/" className="inline-flex flex-col items-center gap-2 mb-6">
+            <Image src="/logo.png" alt={APP_NAME} width={64} height={64} className="rounded-xl" />
+            <span className="font-display text-heading font-bold text-[#1A4D2E]">
               {APP_NAME}
             </span>
           </Link>
