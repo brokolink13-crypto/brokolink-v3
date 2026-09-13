@@ -31,7 +31,7 @@ export default function VideosPage() {
 
           {/* Header with Logo */}
           <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="BrokoLink" width={32} height={32} className="rounded-lg" />
+            <Image src="/logo.svg" alt="BrokoLink" width={32} height={32} className="rounded-lg" />
             <h1 className="text-heading text-neutral-900">My Videos</h1>
           </div>
 
