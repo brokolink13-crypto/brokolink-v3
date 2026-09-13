@@ -2,16 +2,17 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Home, Sparkles, User, LogOut } from "lucide-react";
+import { Home, Play, Gift, User, LogOut } from "lucide-react";
 import { DASHBOARD_NAV, APP_NAME } from "@/lib/constants";
-import { BrokoSVGIcon } from "@/components/broko/BrokoSVGIcon";
 import { useAuth } from "@/hooks/useAuth";
 
 const iconMap: Record<string, React.ElementType> = {
   Home,
-  Sparkles,
+  Play,
+  Gift,
   User,
 };
 
@@ -22,8 +23,8 @@ export function Sidebar() {
   return (
     <aside className="hidden lg:flex flex-col w-64 h-screen sticky top-0 border-r border-neutral-100 bg-white">
       <div className="flex items-center gap-2.5 px-6 h-16 border-b border-neutral-100">
-        <BrokoSVGIcon size={28} />
-        <span className="font-display text-heading-sm font-bold text-broko-primary">
+        <Image src="/logo.png" alt={APP_NAME} width={28} height={28} className="rounded-lg" />
+        <span className="font-display text-heading-sm font-bold text-[#1A4D2E]">
           {APP_NAME}
         </span>
       </div>

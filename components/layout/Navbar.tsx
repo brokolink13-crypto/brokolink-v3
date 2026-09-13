@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui";
-import { BrokoSVGIcon } from "@/components/broko/BrokoSVGIcon";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS, APP_NAME } from "@/lib/constants";
 
@@ -17,8 +17,8 @@ export function Navbar() {
     <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-neutral-100">
       <nav className="container-page flex items-center justify-between h-16">
         <Link href="/" className="flex items-center gap-2.5">
-          <BrokoSVGIcon size={28} />
-          <span className="font-display text-heading-sm font-bold text-broko-primary">
+          <Image src="/logo.png" alt={APP_NAME} width={32} height={32} className="rounded-lg" />
+          <span className="font-display text-heading-sm font-bold text-[#1A4D2E]">
             {APP_NAME}
           </span>
         </Link>

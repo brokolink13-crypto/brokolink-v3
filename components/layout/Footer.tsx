@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { APP_NAME } from "@/lib/constants";
-import { BrokoSVGIcon } from "@/components/broko/BrokoSVGIcon";
 
 export function Footer() {
   return (
@@ -10,8 +10,8 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-3">
-              <BrokoSVGIcon size={24} />
-              <span className="font-display text-heading-sm font-bold text-broko-primary">
+              <Image src="/logo.png" alt={APP_NAME} width={24} height={24} className="rounded" />
+              <span className="font-display text-heading-sm font-bold text-[#1A4D2E]">
                 {APP_NAME}
               </span>
             </Link>
