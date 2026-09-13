@@ -52,14 +52,14 @@ export default function RewardsPage() {
 
           {/* Header with Logo */}
           <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="BrokoLink" width={32} height={32} className="rounded-lg" />
+            <Image src="/logo.svg" alt="BrokoLink" width={32} height={32} className="rounded-lg" />
             <h1 className="text-heading text-neutral-900">Rewards</h1>
           </div>
 
           {/* Broko Seed Balance Card */}
           <Card variant="default" padding="lg" className="bg-white text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-broko-primary to-emerald-400" />
-            <div className="text-3xl mb-2">🌱</div>
+            <div className="text-3xl mb-2">\uD83C\uDF31</div>
             <p className="text-body-sm text-neutral-500 mb-1">Your Broko Seeds</p>
             <p className="text-display text-neutral-900 font-bold mb-1">{seed.balance}</p>
             <p className="text-caption text-neutral-400">= {videosEquivalent} videos</p>
